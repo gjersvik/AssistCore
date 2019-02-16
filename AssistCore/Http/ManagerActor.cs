@@ -22,22 +22,10 @@ namespace AssistCore.Http
             }
         }
 
-        private async Task<Response> Send(Request req){
-            var httpReq = new HttpRequestMessage(new HttpMethod(req.Method), req.Uri);
-            if(!req.Body.IsDefaultOrEmpty){
-                httpReq.Content = new ByteArrayContent(req.Body.ToArray());
-            }
-            
-            foreach (var kv in req.Headers)
-            {
-                httpReq.Headers.Remove(kv.Key);
-                httpReq.Headers.Add(kv.Key, kv.Value);
-            }
-
-            var httpRes = await _client.SendAsync(httpReq);
-            var headers = httpRes.Headers.AsEnumerable().Select(kv => new KeyValuePair<string,string>(kv.Key, kv.Value.First())).ToImmutableDictionary();
-            var body = (await httpRes.Content.ReadAsByteArrayAsync()).ToImmutableArray();
-            return new Response((ushort)httpRes.StatusCode, httpRes.ReasonPhrase, headers, body);
+        private async Task<Response> Send(Request req)
+        {
+            var res = await _client.SendAsync(req.ToHttpClient());
+            return await res.ToMessageAsync();
         }
     }
 }

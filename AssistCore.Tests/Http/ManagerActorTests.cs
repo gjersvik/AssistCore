@@ -6,10 +6,11 @@ using NUnit.Framework;
 
 namespace AssistCore.Tests.Http
 {
-    public class ManagerActorTests: TestKit
+    public class ManagerActorTests : TestKit
     {
         [Test]
-        public void GetGoogle(){
+        public void GetGoogle()
+        {
             var subject = this.Sys.ActorOf<ManagerActor>();
 
             subject.Tell(Request.Get("http://google.com/"), this.TestActor);
