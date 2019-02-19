@@ -28,6 +28,7 @@ namespace AssistCore.Http
                 case HttpListenerContext context:
                     var contextRef = Context.ActorOf(ContextActor.Prop(context.Response));
                     context.ToRequest().PipeTo(_handeler, contextRef);
+                    _listener.GetContextAsync().PipeTo(Self);
                     break;
             }
         }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistCore", "AssistCore\As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistCore.Tests", "AssistCore.Tests\AssistCore.Tests.csproj", "{08B07707-AF3D-4ECD-BDA4-9A8AB3E8F574}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssistCore.Cli", "AssistCore.Cli\AssistCore.Cli.csproj", "{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{08B07707-AF3D-4ECD-BDA4-9A8AB3E8F574}.Release|x64.Build.0 = Release|Any CPU
 		{08B07707-AF3D-4ECD-BDA4-9A8AB3E8F574}.Release|x86.ActiveCfg = Release|Any CPU
 		{08B07707-AF3D-4ECD-BDA4-9A8AB3E8F574}.Release|x86.Build.0 = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|x64.Build.0 = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C0EC057-B84D-4F06-9DF0-CA0F84CED1E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

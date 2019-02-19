@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AssistCore.Tests/AssistCore.Tests.csproj"
+                "${workspaceFolder}/AssistCore.Cli/AssistCore.Cli.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

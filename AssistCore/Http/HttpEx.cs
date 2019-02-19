@@ -39,9 +39,7 @@ namespace AssistCore.Http
             var headers = ImmutableDictionary.CreateBuilder<string, string>();
             foreach (var key in req.Headers.AllKeys)
             {
-                foreach(var value in req.Headers.GetValues(key)){
-                    headers[key] = value;
-                }
+                headers[key] = req.Headers[key];
             }
             var body = ImmutableArray<byte>.Empty;
             if(req.InputStream != null){

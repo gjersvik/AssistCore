@@ -20,7 +20,7 @@ namespace AssistCore.Http
                     Send(req).PipeTo(Sender);
                     break;
                 case Bind bind:
-                    Context.ActorOf(ListenerActor.Prop(bind), bind.Prefix);
+                    Context.ActorOf(ListenerActor.Prop(bind));
                     break;
             }
         }
