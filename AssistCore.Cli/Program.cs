@@ -9,8 +9,10 @@ namespace AssistCore.Cli
         static void Main(string[] args)
         {
             var system = ActorSystem.Create("ActorCoreTestCli");
+            var router = system.ActorOf<ExactPathRouter>();
+            router.Tell(new ExactPathRouter.Register("/", system.ActorOf<HelloWorldActor>()));
             var http = system.ActorOf<ManagerActor>();
-            http.Tell(new Bind(system.ActorOf<HelloWorldActor>(), "http://localhost:8080/"));
+            http.Tell(new Bind(router, "http://localhost:8080/"));
             Console.ReadLine();
         }
     }

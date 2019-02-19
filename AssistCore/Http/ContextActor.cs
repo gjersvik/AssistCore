@@ -12,6 +12,7 @@ namespace AssistCore.Http
         public ContextActor(HttpListenerResponse res)
         {
             _res = res;
+            this.SetReceiveTimeout(TimeSpan.FromSeconds(10));
         }
 
         protected override void OnReceive(object message)
@@ -26,8 +27,15 @@ namespace AssistCore.Http
                     {
                         _res.Headers.Set(kv.Key, kv.Value);
                     }
-                    _res.Close(res.Body.ToArray(), false);
+                    if(res.Body.IsDefaultOrEmpty){
+                        _res.Close();
+                    }else{
+                        _res.Close(res.Body.ToArray(), false);
+                    }
                     Context.Stop(Self);
+                    break;
+                case ReceiveTimeout timeout:
+                    Self.Tell(Response.GatewayTimeout);
                     break;
             }
         }
