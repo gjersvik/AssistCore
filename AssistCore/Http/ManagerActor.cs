@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Akka.Actor;
 
 namespace AssistCore.Http
 {
+    [ExcludeFromCodeCoverage]
     public class ManagerActor : UntypedActor
     {
         private readonly HttpClient _client = new HttpClient();

@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using Akka.Actor;
 
 namespace AssistCore.Http
 {
+    [ExcludeFromCodeCoverage]
     public class ListenerActor : UntypedActor
     {
         private IActorRef _handler;
@@ -27,15 +32,34 @@ namespace AssistCore.Http
             {
                 case HttpListenerContext context:
                     var contextRef = Context.ActorOf(ContextActor.Prop(context.Response));
-                    context.ToRequest().PipeTo(_handler, contextRef);
+                    ToRequest(context).PipeTo(_handler, contextRef);
                     _listener.GetContextAsync().PipeTo(Self);
                     break;
             }
         }
 
-        internal static Props Prop(Bind bind)
+        public static Props Prop(Bind bind)
         {
             return Props.Create(() => new ListenerActor(bind.Handler, bind.Prefix));
+        }
+
+        private static async Task<Request> ToRequest(HttpListenerContext context)
+        {
+            var req = context.Request;
+            var headers = ImmutableDictionary.CreateBuilder<string, string>();
+            foreach (var key in req.Headers.AllKeys)
+            {
+                headers[key] = req.Headers[key];
+            }
+            var body = ImmutableArray<byte>.Empty;
+            if (req.InputStream != null)
+            {
+                var ms = new MemoryStream();
+                await req.InputStream.CopyToAsync(ms);
+                body = ms.ToArray().ToImmutableArray();
+            }
+
+            return new Request(req.HttpMethod, req.Url, headers.ToImmutable(), body);
         }
     }
 }

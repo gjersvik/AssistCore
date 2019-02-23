@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using Akka.Actor;
 
 namespace AssistCore.Http
 {
+    [ExcludeFromCodeCoverage]
     public class ContextActor : UntypedActor
     {
         private readonly HttpListenerResponse _res;
@@ -17,7 +19,7 @@ namespace AssistCore.Http
 
         protected override void OnReceive(object message)
         {
-            
+
             switch (message)
             {
                 case Response res:
@@ -27,9 +29,12 @@ namespace AssistCore.Http
                     {
                         _res.Headers.Set(kv.Key, kv.Value);
                     }
-                    if(res.Body.IsDefaultOrEmpty){
+                    if (res.Body.IsDefaultOrEmpty)
+                    {
                         _res.Close();
-                    }else{
+                    }
+                    else
+                    {
                         _res.Close(res.Body.ToArray(), false);
                     }
                     Context.Stop(Self);

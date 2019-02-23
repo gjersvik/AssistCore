@@ -21,7 +21,8 @@ namespace AssistCore.Cli
     {
         protected override void OnReceive(object message)
         {
-            if(message is Request req){
+            if (message is Request req)
+            {
                 Sender.Tell(Response.Text("Hello World!"));
             }
         }
