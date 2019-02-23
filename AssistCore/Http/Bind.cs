@@ -5,12 +5,16 @@ namespace AssistCore.Http
 {
     public class Bind
     {
-        public readonly IActorRef Handeler;
+        public static Bind Port(IActorRef handler, ushort port)
+        {
+            return new Bind(handler, $"http://localhost:{port}/");
+        }
+        public readonly IActorRef Handler;
         public readonly string Prefix;
 
-        public Bind(IActorRef handeler, string prefix)
+        public Bind(IActorRef handler, string prefix)
         {
-            Handeler = handeler;
+            Handler = handler;
             Prefix = prefix;
         }
     }

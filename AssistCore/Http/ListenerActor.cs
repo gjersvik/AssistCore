@@ -6,12 +6,12 @@ namespace AssistCore.Http
 {
     public class ListenerActor : UntypedActor
     {
-        private IActorRef _handeler;
+        private IActorRef _handler;
         private HttpListener _listener = new HttpListener();
 
-        public ListenerActor(IActorRef handeler, string prefix)
+        public ListenerActor(IActorRef handler, string prefix)
         {
-            _handeler = handeler;
+            _handler = handler;
             _listener.Prefixes.Add(prefix);
         }
 
@@ -27,7 +27,7 @@ namespace AssistCore.Http
             {
                 case HttpListenerContext context:
                     var contextRef = Context.ActorOf(ContextActor.Prop(context.Response));
-                    context.ToRequest().PipeTo(_handeler, contextRef);
+                    context.ToRequest().PipeTo(_handler, contextRef);
                     _listener.GetContextAsync().PipeTo(Self);
                     break;
             }
@@ -35,7 +35,7 @@ namespace AssistCore.Http
 
         internal static Props Prop(Bind bind)
         {
-            return Props.Create(() => new ListenerActor(bind.Handeler, bind.Prefix));
+            return Props.Create(() => new ListenerActor(bind.Handler, bind.Prefix));
         }
     }
 }
