@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AssistCore.Http
 {
@@ -30,6 +32,11 @@ namespace AssistCore.Http
             Reason = reason;
             Headers = headers ?? ImmutableDictionary<string,string>.Empty;
             Body = body;
+        }
+
+        public JToken JsonBody()
+        {
+            return JToken.Parse(Encoding.UTF8.GetString(Body.ToArray()));
         }
     }
 }

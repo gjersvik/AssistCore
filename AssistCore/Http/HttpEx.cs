@@ -20,8 +20,14 @@ namespace AssistCore.Http
 
             foreach (var kv in req.Headers)
             {
-                httpReq.Headers.Remove(kv.Key);
-                httpReq.Headers.Add(kv.Key, kv.Value);
+                try{
+                    httpReq.Headers.Remove(kv.Key);
+                    httpReq.Headers.Add(kv.Key, kv.Value);
+                }catch (Exception)
+                {
+                    httpReq.Content.Headers.Remove(kv.Key);
+                    httpReq.Content.Headers.Add(kv.Key, kv.Value);
+                }
             }
             return httpReq;
         }
