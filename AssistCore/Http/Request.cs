@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Immutable;
+using System.Linq;
+using System.Text;
 
 namespace AssistCore.Http
 {
@@ -24,6 +26,11 @@ namespace AssistCore.Http
         {
             var headers = Headers.SetItem(key, value);
             return new Request(Method, Uri, headers, Body);
+        }
+
+        public string BodyToString()
+        {
+            return Encoding.UTF8.GetString(Body.ToArray());
         }
     }
 }
