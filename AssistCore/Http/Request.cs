@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 
 namespace AssistCore.Http
 {
@@ -37,7 +38,19 @@ namespace AssistCore.Http
             return Encoding.UTF8.GetString(Body.ToArray());
         }
 
-        public Request SetBody(string text, string mimeType = "text/plain"){
+        public ImmutableDictionary<string, string> BodyToForm()
+        {
+            var nv = HttpUtility.ParseQueryString(BodyToString());
+            var dict = ImmutableDictionary.CreateBuilder<string, string>();
+            foreach (var name in nv.AllKeys)
+            {
+                dict.Add(name, nv.Get(name));
+            }
+            return dict.ToImmutable();
+        }
+
+        public Request SetBody(string text, string mimeType = "text/plain")
+        {
             var headers = Headers.SetItem("Content-Type", $"{mimeType}; charset=utf-8");
             var body = Encoding.UTF8.GetBytes(text).ToImmutableArray();
             return new Request(Method, Uri, headers, body);
