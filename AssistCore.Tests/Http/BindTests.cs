@@ -24,7 +24,7 @@ namespace AssistCore.Tests.Http
         {
             var actorRef = CreateTestProbe();
             var bind = Bind.Port(actorRef, 8080);
-            Assert.That(bind.Prefix, Is.EqualTo("http://localhost:8080/"));
+            Assert.That(bind.Prefix, Is.EqualTo("http://+:8080/"));
         }
     }
 }
