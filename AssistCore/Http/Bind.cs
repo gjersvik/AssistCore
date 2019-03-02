@@ -7,7 +7,7 @@ namespace AssistCore.Http
     {
         public static Bind Port(IActorRef handler, ushort port)
         {
-            return new Bind(handler, $"http://localhost:{port}/");
+            return new Bind(handler, $"http://+:{port}/");
         }
         public readonly IActorRef Handler;
         public readonly string Prefix;
