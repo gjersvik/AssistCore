@@ -18,6 +18,11 @@ namespace AssistCore.Human
             Owner = owner;
         }
 
+        public Task SetOwner(IActorRef owner)
+        {
+            return new Task(Name, Priority, owner);
+        }
+
         public int CompareTo(Task other)
         {
             var comp = Priority.CompareTo(other.Priority);
